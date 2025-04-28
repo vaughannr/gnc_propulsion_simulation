@@ -9,6 +9,9 @@ find_package(PkgConfig REQUIRED)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
+# allow use of ctest command
+enable_testing()
+
 add_subdirectory(src)
 add_subdirectory(tests)
 
