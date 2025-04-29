@@ -6,6 +6,11 @@ TEST(PropulsionSystemTest, IgniteWithFuel) {
     PropulsionSystem engine(10.0, 5000.0);
     EXPECT_NO_THROW(engine.ignite());
     EXPECT_TRUE(engine.isRunning());
+
+    // After shutting down, the thrust should be zero and the engine not running.
+    engine.shutdown();
+    EXPECT_DOUBLE_EQ(engine.getCurrentThrust(), 0.0);
+    EXPECT_FALSE(engine.isRunning());
 }
 
 // Test that ignition throws an error when fuel is zero.
@@ -28,6 +33,8 @@ TEST(PropulsionSystemTest, SetThrottleInvalid) {
     engine.ignite();
     EXPECT_THROW(engine.setThrottle(1.5), std::invalid_argument);
     EXPECT_THROW(engine.setThrottle(-0.2), std::invalid_argument);
+    engine.shutdown();
+    EXPECT_THROW(engine.setThrottle(0.5), std::runtime_error); // Engine not running.
 }
 
 // Test fuel consumption over a time interval.

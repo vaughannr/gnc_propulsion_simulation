@@ -20,12 +20,18 @@ public:
     // Sets the target position.
     void setTarget(double target);
 
+    // Returns the target position.
+    double getTarget() const;
+
     // Returns the desired velocity, calculated as:
     // desired_velocity = kp * (targetPosition - currentPosition)
     double computeDesiredVelocity(const State &currentState) const;
 
     // Adjust the proportional gain.
     void setGain(double kp);
+
+    // Returns the current gain.
+    double getGain() const;
 
 private:
     double kp_;
@@ -49,6 +55,9 @@ public:
 
     // Adjust the proportional gain.
     void setGain(double kp);
+
+    // Returns the current gain.
+    double getGain() const;
 
 private:
     double kp_;
@@ -89,8 +98,14 @@ public:
     // Optionally adjust the guidance module gain.
     void setGuidanceGain(double kp);
 
+    // Return the current guidance module gain.
+    double getGuidanceGain() const;
+
     // Optionally adjust the control module gain.
     void setControlGain(double kp);
+
+    // Return the current control module gain.
+    double getControlGain() const;
 
     // Update the entire GNC system by a time step dt.
     // This method computes the desired velocity, then acceleration, stores the
@@ -105,6 +120,8 @@ public:
 
     // Set a new target position.
     void setTarget(double target);
+
+    double getTarget() const;
 
 private:
     State state_;                     // The current state.

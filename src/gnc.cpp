@@ -6,12 +6,20 @@ void GuidanceModule::setTarget(double target) {
     targetPosition_ = target;
 }
 
+double GuidanceModule::getTarget() const {
+    return targetPosition_;
+}
+
 double GuidanceModule::computeDesiredVelocity(const State &currentState) const {
     return kp_ * (targetPosition_ - currentState.position);
 }
 
 void GuidanceModule::setGain(double kp) {
     kp_ = kp;
+}
+
+double GuidanceModule::getGain() const {
+    return kp_;
 }
 
 // --- ControlModule Definitions ---
@@ -21,6 +29,10 @@ double ControlModule::computeControlAcceleration(double desiredVelocity, const S
 
 void ControlModule::setGain(double kp) {
     kp_ = kp;
+}
+
+double ControlModule::getGain() const {
+    return kp_;
 }
 
 // --- NavigationModule Definitions ---
@@ -37,8 +49,16 @@ void GNCSystem::setGuidanceGain(double kp) {
     guidance_.setGain(kp);
 }
 
+double GNCSystem::getGuidanceGain() const {
+    return guidance_.getGain();
+}
+
 void GNCSystem::setControlGain(double kp) {
     control_.setGain(kp);
+}
+
+double GNCSystem::getControlGain() const {
+    return control_.getGain();
 }
 
 void GNCSystem::update(double dt) {
@@ -58,4 +78,8 @@ double GNCSystem::getLatestControlAcceleration() const {
 
 void GNCSystem::setTarget(double target) {
     guidance_.setTarget(target);
+}
+
+double GNCSystem::getTarget() const {
+    return guidance_.getTarget();
 }

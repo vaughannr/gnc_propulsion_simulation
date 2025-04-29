@@ -5,6 +5,24 @@
 // Unit tests for individual modules
 // ------------------------------
 
+//
+TEST(GuidanceModuleTest, SetTarget) {
+    GuidanceModule guidance;
+    guidance.setTarget(50.0);
+    EXPECT_DOUBLE_EQ(guidance.getTarget(), 50.0);
+    guidance.setTarget(100.0);
+    EXPECT_DOUBLE_EQ(guidance.getTarget(), 100.0);
+}
+
+//
+TEST(GuidanceModuleTest, SetGain) {
+    GuidanceModule guidance;
+    guidance.setGain(0.5);
+    EXPECT_DOUBLE_EQ(guidance.getGain(), 0.5);
+    guidance.setGain(1.0);
+    EXPECT_DOUBLE_EQ(guidance.getGain(), 1.0);
+}
+
 // Test the GuidanceModule: with kp = 0.2 and target = 100.0 and a current position of 50,
 // the computed desired velocity should be 0.2*(100-50) = 10.0.
 TEST(GuidanceModuleTest, ComputeDesiredVelocity) {
@@ -12,6 +30,15 @@ TEST(GuidanceModuleTest, ComputeDesiredVelocity) {
     State currentState {50.0, 0.0};
     double desiredVelocity = guidance.computeDesiredVelocity(currentState);
     EXPECT_DOUBLE_EQ(desiredVelocity, 10.0);
+}
+
+//
+TEST(ControlModuleTest, SetGain) {
+    ControlModule control;
+    control.setGain(1.5);
+    EXPECT_DOUBLE_EQ(control.getGain(), 1.5);
+    control.setGain(2.0);
+    EXPECT_DOUBLE_EQ(control.getGain(), 2.0);
 }
 
 // Test the ControlModule: with kp = 2.0, a desired velocity of 15.0, and a current velocity of 5.0,
@@ -47,6 +74,23 @@ TEST(NavigationModuleTest, NegativeDtThrows) {
 // ------------------------------
 // Unit tests for the overall GNCSystem
 // ------------------------------
+
+TEST(GNCSystemTest, SetGains) {
+    GNCSystem gnc(0.0, 0.0, 100.0);
+    EXPECT_DOUBLE_EQ(gnc.getGuidanceGain(), 0.1);
+    EXPECT_DOUBLE_EQ(gnc.getControlGain(), 1.0);
+    gnc.setGuidanceGain(0.5);
+    EXPECT_DOUBLE_EQ(gnc.getGuidanceGain(), 0.5);
+    gnc.setControlGain(2.0);
+    EXPECT_DOUBLE_EQ(gnc.getControlGain(), 2.0);
+}
+
+TEST(GNCSystemTest, SetTarget) {
+    GNCSystem gnc(0.0, 0.0, 100.0);
+    EXPECT_DOUBLE_EQ(gnc.getTarget(), 100.0);
+    gnc.setTarget(200.0);
+    EXPECT_DOUBLE_EQ(gnc.getTarget(), 200.0);
+}
 
 // Test a single update step for the GNCSystem.
 // With initial state position = 0, velocity = 0 and target = 100:

@@ -35,9 +35,9 @@ public:
     bool isRunning() const;
 
 private:
-    double fuelMass;
-    double maxThrust;
-    double currentThrust;
-    bool running;
-    const double consumptionRate; // fuel consumption constant (kg/(N·s))
+    double fuelMass_;
+    double maxThrust_;
+    double currentThrust_;
+    bool running_;
+    const double consumptionRate_; // fuel consumption constant (kg/(N·s))
 };
