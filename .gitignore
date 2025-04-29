@@ -33,3 +33,6 @@
 
 # CMakeFiles
 build/
+
+#clangd
+.cache/clangd/

@@ -45,9 +45,9 @@ if(LCOV_EXEC AND GENHTML_EXEC)
   # This custom target runs tests and then generates an HTML coverage report.
   add_custom_target(coverage
     COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
-    COMMAND ${LCOV_EXEC} --directory . --capture --output-file coverage.info --ignore-errors inconsistent
+    COMMAND ${LCOV_EXEC} --directory . --capture --output-file coverage.info --ignore-errors inconsistent,inconsistent
     # Optionally remove system files from coverage (e.g., files from /usr).
-    COMMAND ${LCOV_EXEC} --remove coverage.info "/usr/*" --output-file coverage.info --ignore-errors unused --ignore-errors inconsistent --rc geninfo_unexecuted_blocks=1
+    COMMAND ${LCOV_EXEC} --remove coverage.info "/usr/*" --output-file coverage.info --ignore-errors unused,unused ... --ignore-errors inconsistent --rc geninfo_unexecuted_blocks=1
     COMMAND ${GENHTML_EXEC} coverage.info --output-directory coverage_report
     COMMENT "Running tests and generating code coverage report in the coverage_report directory"
   )
