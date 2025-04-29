@@ -23,7 +23,7 @@ if(NOT CLANG_FORMAT)
 endif()
 message(STATUS "Found clang-format at: ${CLANG_FORMAT}")
 
-# Option 1: A target to automatically reformat the source files in place.
+# A target to automatically reformat the source files in place.
 add_custom_target(format
     COMMAND ${CLANG_FORMAT} -i ${ALL_CXX_SOURCE_FILES}
     COMMENT "Running clang-format to reformat all source files"
